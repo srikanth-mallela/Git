@@ -1,0 +1,7 @@
+#!/bin/bash
+
+#command to see the list of commits made by every user
+
+git log --pretty=format:"%an" | sort | uniq -c | sort -nr
+
+

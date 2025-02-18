@@ -1,0 +1,23 @@
+#!/bin/bash
+
+MAIN_BRANCH="main"
+
+FEATURE_BRANCHES=("feature1" "feature2" "feature3")
+
+for FEATURE_BRANCH in "${FEATURE_BRANCHES[@]}"; do
+    git merge --no-ff $FEATURE_BRANCH -m "Merging $FEATURE_BRANCH in $MAIN_BRANCH"
+    if [ $? -ne 0 ]; then
+        echo "$FEATURE_BRANCH merging failed due to conflicts gonna try merging them by accepting ours"
+        git ls-files -u | sort -u | awk '{print $2}' | while read file; do
+            git checkout --ours $file
+            git add $file
+        done
+        echo "resolved and merged"
+        git commit -m "MERGING of $FEATURE_BRANCH and $MAIN_BRANCH completed after fixing conflicts" 
+    fi
+done
+
+
+
+
+

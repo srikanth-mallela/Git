@@ -1,0 +1,16 @@
+#!/bin/bash
+
+#going to create and switch to a new branch
+log-file="C:\Users\srima\OneDrive\Desktop\Scripts\file.log"
+if [ -z "$1"]; then
+    echo "provide a branch name: "
+    exit 1
+fi
+set -e
+exec > $log-file 2>&1
+git checkout -b $1
+
+echo "branch created successfully"
+
+
+

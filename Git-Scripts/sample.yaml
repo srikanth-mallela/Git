@@ -1,0 +1,29 @@
+name: ci/cd integration
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  running CI/CD:
+    runs-on:  ubuntu-latest
+    
+    steps:
+      - name: chekcout
+        uses: actions/checkout@v4
+      - name: set up node
+        uses: actions/setup-node@v4
+        with:
+          version: "18"
+      
+      - name: dependencies
+        run: npm install
+      
+      - name: build
+        run: npm run build
+      
+      - name: npm tests
+        run: npm tests
+      
+

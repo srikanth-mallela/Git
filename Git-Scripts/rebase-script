@@ -1,0 +1,25 @@
+#!/bin/bash/
+
+FEATURE_BRANCH="feature-branch"
+MAIN_BRANCH="main-branch"
+
+echo "switch to feature branch"
+git checkout $FEATURE_BRANCH
+
+echo "fetch latest changes"
+git fetch origin
+
+echo "rebasing on to main branch"
+
+git rebase origin/$MAIN_BRANCH
+
+if [ $? -ne 0 ]; then
+    echo "there are some conflicting changes"
+    echo "conflicts are in the folliowing files"
+    git status | grep "both modified | awk '{print $3}'
+    exit 1
+fi
+
+git push origin --force-with-lease
+echo "rebase successful"
+

@@ -1,0 +1,25 @@
+#!bin/bash
+
+MAIN_BRANCH="main"
+RELEASE_BRANCH=release-$(date +%y%m%d)
+
+
+git checkout $MAIN_BRANCH
+
+git pull origin $MAIN_BRANCH
+
+git checkout -b $RELEASE_BRANCH
+
+git push origin $RELEASE_BRANCH
+
+echo "release branch created"
+
+
+log_path="path/to/log/file/log"
+
+exec > $log_path 2>&1
+
+
+
+
+exec > $log-file 2>&1
